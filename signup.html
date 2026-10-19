@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Open an account — SwiftTrust PH</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+<style>
+  html, body { overflow-x: hidden; }
+
+  .su-shell {
+    min-height: 100vh;
+    background: var(--bg);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 20px 14px 40px;
+    box-sizing: border-box;
+  }
+  .su-card {
+    width: 100%;
+    max-width: 460px;
+    background: #fff;
+    border-radius: 18px;
+    padding: 0;
+    box-shadow: 0 8px 28px rgba(15, 23, 42, .06);
+    border: 1px solid var(--line);
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  /* ---------- Header strip ---------- */
+  .su-top {
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--line);
+    background: #fff;
+  }
+  .su-brand {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-weight: 700;
+    font-size: .95rem;
+    color: var(--ink);
+    letter-spacing: -.01em;
+    text-decoration: none;
+  }
+  .su-brand:hover { text-decoration: none; }
+  .su-brand-mark {
+    width: 28px; height: 28px;
+    border-radius: 7px;
+    background: linear-gradient(135deg, var(--navy), var(--gold));
+    color: #fff;
+    display: grid; place-items: center;
+    font-size: .78rem;
+    flex-shrink: 0;
+  }
+  .su-brand strong { font-weight: 800; color: var(--gold-hover); }
+  .su-secure {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: .68rem;
+    font-weight: 600;
+    color: var(--green);
+    background: var(--green-soft);
+    padding: 4px 9px;
+    border-radius: 999px;
+    letter-spacing: .02em;
+  }
+  .su-secure i { font-size: .62rem; }
+
+  /* ---------- Title block ---------- */
+  .su-title-block {
+    padding: 24px 22px 22px;
+    border-bottom: 1px solid var(--line);
+  }
+  .su-title-block h1 {
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -.02em;
+    color: var(--ink);
+    margin: 0 0 6px;
+  }
+  .su-title-block p {
+    font-size: .82rem;
+    color: var(--text-faint);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* ---------- Body ---------- */
+  .su-body { padding: 22px; }
+
+  /* Section headings */
+  .su-section {
+    font-size: .68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    color: var(--text-faint);
+    margin: 20px 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .su-section:first-of-type { margin-top: 0; }
+  .su-section::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+
+  /* Fields */
+  .su-card .field { margin-bottom: 14px; }
+  .su-card .field label {
+    display: block;
+    font-size: .78rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .su-card .field input,
+  .su-card .field select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--line-2);
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: .9rem;
+    color: var(--ink);
+    background: #fff;
+    box-sizing: border-box;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  .su-card .field input:focus,
+  .su-card .field select:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(212, 160, 23, .15);
+  }
+  .su-card .field-hint {
+    font-size: .72rem;
+    color: var(--text-faint);
+    margin-top: 5px;
+  }
+
+  .su-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  /* Checkbox */
+  .su-check {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin: 18px 0;
+  }
+  .su-check input {
+    width: auto !important;
+    margin-top: 3px;
+    flex-shrink: 0;
+    accent-color: var(--gold);
+  }
+  .su-check label {
+    font-weight: 400 !important;
+    font-size: .8rem !important;
+    color: var(--text-dim) !important;
+    line-height: 1.5;
+    cursor: pointer;
+  }
+
+  /* Submit */
+  .su-submit {
+    width: 100%;
+    padding: 14px 20px;
+    border-radius: 10px;
+    border: none;
+    background: var(--gold);
+    color: #fff;
+    font-family: inherit;
+    font-size: .92rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all .15s;
+    box-shadow: 0 4px 12px rgba(212, 160, 23, .22);
+    letter-spacing: .01em;
+  }
+  .su-submit:hover:not(:disabled) {
+    background: var(--gold-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(212, 160, 23, .28);
+  }
+  .su-submit:active { transform: scale(.99); }
+  .su-submit:disabled { opacity: .7; cursor: not-allowed; }
+
+  /* Footer */
+  .su-foot {
+    padding: 16px 22px 20px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+    font-size: .82rem;
+    color: var(--text-faint);
+    background: var(--bg);
+  }
+  .su-foot a { font-weight: 700; color: var(--gold-hover); }
+
+  /* Alert */
+  .su-card .form-alert {
+    padding: 11px 14px;
+    border-radius: 10px;
+    font-size: .82rem;
+    margin-bottom: 16px;
+    display: none;
+  }
+  .su-card .form-alert.show { display: block; }
+  .su-card .form-alert.error { background: var(--red-soft); color: var(--red); border: 1px solid #fecaca; }
+  .su-card .form-alert.success { background: var(--green-soft); color: var(--green); border: 1px solid #bbf7d0; }
+
+  /* ---------- Desktop ---------- */
+  @media (min-width: 960px) {
+    .su-shell { padding: 60px 20px; background: #f4f6fb; }
+    .su-card {
+      max-width: 500px;
+      box-shadow: 0 20px 50px rgba(15, 23, 42, .08);
+    }
+    .su-title-block h1 { font-size: 1.5rem; }
+  }
+
+  @media (min-width: 620px) and (max-width: 959px) {
+    .su-card { max-width: 520px; }
+    .su-row { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="su-shell">
+  <div class="su-card">
+
+    <!-- Header strip -->
+    <div class="su-top">
+      <a href="index.html" class="su-brand">
+        <div class="su-brand-mark"><i class="fas fa-shield-halved"></i></div>
+        <div>SwiftTrust <strong>PH</strong></div>
+      </a>
+      <span class="su-secure"><i class="fas fa-lock"></i> Secure</span>
+    </div>
+
+    <!-- Title -->
+    <div class="su-title-block">
+      <h1>Create your account</h1>
+      <p>Complete the form below to open your SwiftTrust PH account.</p>
+    </div>
+
+    <!-- Body -->
+    <div class="su-body">
+
+      <div class="form-alert" id="signupAlert"></div>
+
+      <div class="su-section">Personal information</div>
+
+      <div class="field">
+        <label>Full legal name</label>
+        <input type="text" id="fullName" placeholder="Maria Santos Dela Cruz" required />
+      </div>
+
+      <div class="su-row">
+        <div class="field">
+          <label>Email address</label>
+          <input type="email" id="email" placeholder="you@example.com" required />
+        </div>
+        <div class="field">
+          <label>Mobile number</label>
+          <input type="tel" id="phone" placeholder="+63 912 345 6789" required />
+        </div>
+      </div>
+
+      <div class="su-row">
+        <div class="field">
+          <label>Date of birth</label>
+          <input type="date" id="dob" required />
+        </div>
+        <div class="field">
+          <label>ZIP / Postal code</label>
+          <input type="text" id="zip" placeholder="1200" maxlength="10" />
+        </div>
+      </div>
+
+      <div class="su-section">Home address</div>
+
+      <div class="field">
+        <label>Street address</label>
+        <input type="text" id="street" placeholder="123 Ayala Avenue" required />
+      </div>
+
+      <div class="su-row">
+        <div class="field">
+          <label>City / Municipality</label>
+          <input type="text" id="city" placeholder="Makati" required />
+        </div>
+        <div class="field">
+          <label>Province <span style="color:var(--text-faint);font-weight:400;">(optional)</span></label>
+          <input type="text" id="state" placeholder="Metro Manila" />
+        </div>
+      </div>
+
+      <div class="su-section">Security</div>
+
+      <div class="field">
+        <label>Password</label>
+        <input type="password" id="password" placeholder="At least 8 characters" minlength="8" required />
+        <div class="field-hint">Use a mix of letters, numbers, and symbols.</div>
+      </div>
+
+      <div class="su-row">
+        <div class="field">
+          <label>Transaction PIN</label>
+          <input type="password" id="pin" placeholder="••••" maxlength="4" pattern="\d{4}" inputmode="numeric" required />
+          <div class="field-hint">4 digits. Required for every transfer.</div>
+        </div>
+        <div class="field">
+          <label>Confirm PIN</label>
+          <input type="password" id="pinConfirm" placeholder="••••" maxlength="4" pattern="\d{4}" inputmode="numeric" required />
+        </div>
+      </div>
+
+      <div class="su-check">
+        <input type="checkbox" id="agree" required />
+        <label for="agree">
+          I agree to the SwiftTrust PH Terms of Service and Privacy Policy.
+        </label>
+      </div>
+
+      <button type="submit" class="su-submit" id="submitBtn">
+        <i class="fas fa-user-plus"></i> Create account
+      </button>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="su-foot">
+      Already have an account? <a href="login.html">Sign in</a>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+
+<script>
+const alertEl = document.getElementById('signupAlert');
+const submitBtn = document.getElementById('submitBtn');
+
+function showAlert(msg, type) {
+  alertEl.textContent = msg;
+  alertEl.className = 'form-alert show ' + (type || 'error');
+}
+
+submitBtn.addEventListener('click', async (e) => {
+  e.preventDefault();
+  alertEl.className = 'form-alert';
+
+  const fullName = document.getElementById('fullName').value.trim();
+  const email = document.getElementById('email').value.trim().toLowerCase();
+  const phone = document.getElementById('phone').value.trim();
+  const dob = document.getElementById('dob').value;
+  const zip = document.getElementById('zip').value.trim();
+  const street = document.getElementById('street').value.trim();
+  const city = document.getElementById('city').value.trim();
+  const state = document.getElementById('state').value.trim();
+  const password = document.getElementById('password').value;
+  const pin = document.getElementById('pin').value.trim();
+  const pinConfirm = document.getElementById('pinConfirm').value.trim();
+
+  if (!fullName) { showAlert('Enter your full legal name.'); return; }
+  if (!email) { showAlert('Enter your email address.'); return; }
+  if (!phone) { showAlert('Enter your mobile number.'); return; }
+  if (!dob) { showAlert('Enter your date of birth.'); return; }
+  if (!street || !city) { showAlert('Enter your full home address.'); return; }
+  if (password.length < 8) { showAlert('Password must be at least 8 characters.'); return; }
+  if (pin !== pinConfirm) { showAlert('Transaction PINs do not match.'); return; }
+  if (!/^\d{4}$/.test(pin)) { showAlert('Transaction PIN must be exactly 4 digits.'); return; }
+  if (!document.getElementById('agree').checked) { showAlert('Please accept the Terms of Service to continue.'); return; }
+
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Creating your account…';
+
+  try {
+    const cred = await auth.createUserWithEmailAndPassword(email, password);
+    const uid = cred.user.uid;
+    await cred.user.updateProfile({ displayName: fullName });
+
+    await db.collection('swifttrust_users').doc(uid).set({
+      uid,
+      role: 'customer',
+      status: 'pending',
+      fullName,
+      email,
+      phone,
+      dob,
+      address: { street, city, state, zip },
+      pinHash: stbHashPin(pin),
+      watchlist: [],
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    const routing = stbGenRoutingNumber();
+
+    await db.collection('swifttrust_accounts').doc().set({
+      ownerId: uid, ownerName: fullName,
+      type: 'checking', nickname: 'Everyday Checking',
+      accountNumber: stbGenAccountNumber(), routingNumber: routing,
+      balance: 0, currency: 'PHP', status: 'active',
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    await db.collection('swifttrust_accounts').doc().set({
+      ownerId: uid, ownerName: fullName,
+      type: 'savings', nickname: 'High-Yield Savings',
+      accountNumber: stbGenAccountNumber(), routingNumber: routing,
+      balance: 0, currency: 'PHP', status: 'active',
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    await auth.signOut();
+    showAlert('Account created. Redirecting to sign in…', 'success');
+    setTimeout(() => { window.location.href = 'login.html'; }, 1200);
+
+  } catch (err) {
+    console.error(err);
+    let msg = 'Something went wrong. Please try again.';
+    if (err.code === 'auth/email-already-in-use') msg = 'That email is already registered. Try signing in instead.';
+    else if (err.code === 'auth/invalid-email') msg = 'Please enter a valid email address.';
+    else if (err.code === 'auth/weak-password') msg = 'Please choose a stronger password.';
+    else if (err.code === 'permission-denied') msg = 'Database permission error. Contact support.';
+    showAlert(msg);
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = '<i class="fas fa-user-plus"></i> Create account';
+  }
+});
+</script>
+</body>
+</html>
